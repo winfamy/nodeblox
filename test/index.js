@@ -6,4 +6,5 @@ import { Client } from '../src'
 	})
 	
 	console.log(await r.isLoggedIn())
+	console.log(await r.fetchGroupFunds(797785))
 })()

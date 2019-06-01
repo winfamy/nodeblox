@@ -63,13 +63,18 @@ export class Client {
     fetchGroupFunds (groupId) {
         return new Promise((resolve, reject) => {
             let opts = { 
-                url: `https://www.roblox.com/my/groupadmin.aspx?gid=${groupId}`,
-                followRedirect: false
+                url: `https://www.roblox.com/my/groupadmin.aspx?gid=${groupId}`
             }
     
             this.request(opts, (err, resp, body) => {
                 if (err) return reject(err)
     
+                if (resp.request.uri.pathname === '/NewLogin') {
+                    return reject(
+                        new Error('not logged in')
+                    ) 
+                }
+
                 if (resp.statusCode !== 200) {
                     return reject(new Error('Not allowed to check admin page of given group'))
                 }
