@@ -1,0 +1,48 @@
+{
+  "_from": "nodeblox",
+  "_id": "nodeblox@2.1.1",
+  "_inBundle": false,
+  "_integrity": "sha512-4Fd3sTaCYrVAYXCFEGsv5yeI9UY2zozYRVVWxij6Ted6BN4dMWnUxHE80IsVUN2Uqo8YoStv+toz5hk+UVwqwg==",
+  "_location": "/nodeblox",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "nodeblox",
+    "name": "nodeblox",
+    "escapedName": "nodeblox",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/nodeblox/-/nodeblox-2.1.1.tgz",
+  "_shasum": "5b6d27307ccbf0f483f1e76eb3dfd7e79f32bbef",
+  "_spec": "nodeblox",
+  "_where": "/Users/grady/projects/bux.gg",
+  "author": "",
+  "bundleDependencies": false,
+  "dependencies": {
+    "@babel/node": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "request": "^2.88.0"
+  },
+  "deprecated": false,
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4"
+  },
+  "license": "ISC",
+  "main": "build/index.js",
+  "name": "nodeblox",
+  "scripts": {
+    "build": "babel src -d build",
+    "test": "nodemon --exec babel-node ./test"
+  },
+  "version": "2.1.2"
+}
