@@ -79,7 +79,7 @@ export class Client {
                     return reject(new Error('Not allowed to check admin page of given group'))
                 }
     
-                let robux = body.match(/<span class='robux'>(\d+)<\/span>/)[1]    
+                let robux = body.match(/<span class='icon-robux-16x16'><\/span><span>(\d+)<\/span>/)[1]    
                 return resolve(parseInt(robux))
             })
         })
