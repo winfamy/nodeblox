@@ -35,7 +35,8 @@
   "description": "",
   "devDependencies": {
     "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.4.4"
+    "@babel/core": "^7.4.4",
+    "nodemon": "^2.0.1"
   },
   "license": "ISC",
   "main": "build/index.js",

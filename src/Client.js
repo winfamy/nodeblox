@@ -148,4 +148,31 @@ export class Client {
             })
         })
     }
+
+    sendPrivateMessage({ userId, subject, messageContent }) {
+        return new Promise((resolve, reject) => {
+            this.getToken().then(() => {
+                let opts = {
+                    method: 'POST',
+                    url: 'https://www.roblox.com/messages/send',
+                    headers: { 'X-CSRF-TOKEN': this.token },
+                    form: {
+                        body: messageContent,
+                        recipientid: userId.toString(),
+                        cacheBuster: Date.now(),
+                        subject
+                    }
+                }
+
+                this.request(opts, (err, resp, body) => {
+                    try {
+                        let json = JSON.parse(body)
+                        return json.success ? resolve() : reject({ privacy: true, message: 'Privacy?', json })
+                    } catch (e) {
+                        return reject({ privacy: false, message: 'No user' })
+                    }
+                })
+            })
+        })
+    }
 }
