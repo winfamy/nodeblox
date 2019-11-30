@@ -43,7 +43,8 @@
   "name": "nodeblox",
   "scripts": {
     "build": "babel src -d build",
-    "test": "nodemon --exec babel-node ./test"
+    "test": "nodemon --exec babel-node ./test",
+    "push": "npm run build && npm publish"
   },
   "version": "2.3.0"
 }
