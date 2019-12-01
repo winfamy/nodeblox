@@ -175,4 +175,75 @@ export class Client {
             })
         })
     }
+
+    static fetchGroupInfo({ groupId }) {
+        return new Promise((resolve, reject) => {
+            let opts = {
+
+            }
+        })
+    }
+
+    static fetchGroupRoles({ groupId }) {
+        return new Promise((resolve, reject) => {
+            let opts = {
+                method: 'GET',
+                url: `https://groups.roblox.com/v1/groups/${groupId}/roles`
+            }
+
+            request(opts, (err, resp, body) => {
+                try {
+                    let json = JSON.parse(body)
+                    if (json.errors) {
+                        return reject({ err: 'dunno', json })
+                    }
+                    
+                    return resolve(json.roles)
+                } catch (e) {
+                    return reject({ err: 'dunno' })
+                }
+            })
+        })
+    }
+
+    static fetchGroupRoleMembers({ groupId, roleId }) {
+        let members = []
+
+        let sendRequest = function ({ cursor, groupId, roleId }) {
+            return new Promise((resolve, reject) => {
+                console.log(`https://groups.roblox.com/v1/groups/${groupId}/roles/${roleId}/users?cursor=${cursor}&limit=100&sortOrder=Desc`)
+                let opts = {
+                    method: 'GET',
+                    url: `https://groups.roblox.com/v1/groups/${groupId}/roles/${roleId}/users?cursor=${cursor}&limit=100&sortOrder=Desc`
+                }
+    
+                request(opts, (err, resp, body) => {
+                    try {
+                        let json = JSON.parse(body)
+                        if (json.errors) return reject({ err: 'dunno', json })
+
+                        members = [...members, ...json.data]
+                        if (json.nextPageCursor) {
+                            return resolve({ cursor: json.nextPageCursor }) 
+                        }
+
+                        return resolve({ cursor: '' })
+                    } catch (e) {
+                        return reject(e)
+                    }
+                })
+            })
+        }
+
+        return new Promise(async (resolve, reject) => {
+            let { cursor } = await sendRequest({ cursor: '', groupId, roleId })
+            while (cursor) {
+                ({ cursor } = await sendRequest({ cursor, groupId, roleId }))
+            }
+
+            return resolve(members)
+        })
+        // https://groups.roblox.com/v1/groups/4413375/roles/29726499/users?cursor=&limit=100&sortOrder=Desc
+        // https://groups.roblox.com/v1/groups/4413375/roles
+    }
 }
