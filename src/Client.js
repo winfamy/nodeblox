@@ -264,4 +264,22 @@ export class Client {
             })
         })
     }
+
+    unfollowUser({ userId }) {
+        return new Promise((resolve, reject) => {
+            this.getToken().then(() => {
+                let opts = {
+                    url: `https://www.roblox.com/user/unfollow`,
+                    method: 'POST',
+                    headers: { 'X-CSRF-TOKEN': this.token },
+                    json: { targetUserId: userId.toString() }
+                }
+    
+                this.request(opts, (err, resp, body) => {
+                    if (err) return reject(err)    
+                    return resolve()
+                })
+            })
+        })
+    }
 }
