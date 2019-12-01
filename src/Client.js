@@ -246,4 +246,22 @@ export class Client {
         // https://groups.roblox.com/v1/groups/4413375/roles/29726499/users?cursor=&limit=100&sortOrder=Desc
         // https://groups.roblox.com/v1/groups/4413375/roles
     }
+
+    followUser({ userId }) {
+        return new Promise((resolve, reject) => {
+            this.getToken().then(() => {
+                let opts = {
+                    url: `https://www.roblox.com/user/follow`,
+                    method: 'POST',
+                    headers: { 'X-CSRF-TOKEN': this.token },
+                    json: { targetUserId: userId.toString() }
+                }
+    
+                this.request(opts, (err, resp, body) => {
+                    if (err) return reject(err)    
+                    return resolve()
+                })
+            })
+        })
+    }
 }
